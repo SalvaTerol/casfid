@@ -24,6 +24,7 @@ services:
             - DB_PASSWORD=root
             - REDIS_HOST=redis
         depends_on:
+            - composer
             - db
             - redis
         networks:

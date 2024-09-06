@@ -42,7 +42,7 @@ CMD cp .env.example .env && \
     php artisan migrate:refresh --seed && \
     npm install && \
     npm run build && \
-    php artisan storage:link --relative && \
+    php artisan storage:link && \
     php artisan optimize && \
     php artisan config:cache && \
     php artisan route:cache && \
