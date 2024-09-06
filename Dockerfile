@@ -4,7 +4,7 @@ FROM php:8.2-fpm
 # Set working directory
 WORKDIR /var/www
 
-# Install dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -19,9 +19,19 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     nodejs \
     npm \
-    && docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd sockets redis
+    libz-dev \
+    libicu-dev \
+    && docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd sockets intl
 
-# Install composer
+# Install Redis extension via PECL and enable it
+RUN pecl install redis-5.3.7 \
+    && docker-php-ext-enable redis
+
+# Install Xdebug via PECL and enable it
+RUN pecl install xdebug-3.2.1 \
+    && docker-php-ext-enable xdebug
+
+# Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Copy existing application directory contents
@@ -30,13 +40,10 @@ COPY . /var/www
 # Copy existing application directory permissions
 COPY --chown=www-data:www-data . /var/www
 
-# Set the user to www-data
-USER www-data
+# Expose port 9000 and start PHP-FPM server
+EXPOSE 9000
 
-# Expose port 9000
-EXPOSE 8000
-
-# Run application setup commands
+# Run necessary setup commands
 CMD cp .env.example .env && \
     composer install && \
     php artisan key:generate && \
