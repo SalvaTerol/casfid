@@ -1,0 +1,7 @@
+.pizza-thumb{
+    height: auto;
+    width: 120px;
+}
+.dropdown-item:hover{
+    background-color: #CCCCCC!important;
+}
