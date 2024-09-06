@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'casfid',
             'email' => 'client@client.com',
-            'password' => Hash::make('123456'),
+            'password' => Hash::make('12345678'),
         ]);
     }
 }
