@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     nodejs \
     npm \
-    && docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd sockets
+    && docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd sockets redis
 
 # Install composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -34,13 +34,14 @@ COPY --chown=www-data:www-data . /var/www
 USER www-data
 
 # Expose port 9000
-EXPOSE 9000
+EXPOSE 8000
 
 # Run application setup commands
 CMD cp .env.example .env && \
     composer install && \
     php artisan key:generate && \
     php artisan migrate --force && \
+    php artisan db:seed --force && \
     npm install && \
     npm run build && \
     php artisan optimize && \

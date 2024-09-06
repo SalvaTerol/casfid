@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use Domain\Menu\FormRequests\IngredientRequest;
 use Tests\TestCase;
