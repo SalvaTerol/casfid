@@ -1,66 +1,95 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Pizzería - Aplicación Basada en DDD
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto de Laravel implementa una solución basada en Domain-Driven Design (DDD) para la gestión de un catálogo de pizzas e ingredientes, sin utilizar la arquitectura hexagonal. A continuación se describen los aspectos clave de la implementación.
 
-## About Laravel
+## Arquitectura y Dominio
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Domain-Driven Design (DDD)
+El proyecto sigue un enfoque DDD para organizar el código, aunque **sin** aplicar la arquitectura hexagonal. La razón para no incluir la arquitectura hexagonal es que, en este caso, no se necesita la separación explícita de las capas externas e internas, lo que simplifica la estructura y mantiene el enfoque en el dominio.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Dominio: `Menu`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+El dominio principal en esta aplicación es `Menu`. Elegí este nombre porque refleja la estructura central del negocio: un menú de pizzas y sus ingredientes. El objetivo de este enfoque es asegurar que todo el código relacionado con la gestión del menú esté agrupado en un solo lugar, lo que facilita el desarrollo, el mantenimiento y la escalabilidad en el futuro. Todo lo que tiene que ver con la creación, modificación y eliminación de pizzas, ingredientes y sus precios se encuentra dentro de este dominio.
 
-## Learning Laravel
+#### Beneficios de la organización por dominios
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Este enfoque de DDD ofrece varios beneficios clave para el futuro del proyecto:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Facilidad de Mantenimiento**: Todo el código relacionado con el negocio del menú está contenido en un solo lugar. Esto significa que, si en el futuro se necesita añadir o modificar funcionalidades relacionadas con pizzas o ingredientes, solo es necesario buscar en el dominio `Menu`. No hay necesidad de navegar por diferentes capas técnicas o directorios.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. **Escalabilidad**: Si el proyecto crece y se añaden más funcionalidades, como gestionar órdenes o clientes, podemos crear nuevos dominios que se ajusten a esas necesidades, manteniendo el código modular y organizado.
 
-## Laravel Sponsors
+3. **Onboarding**: Facilita el onboarding de nuevos desarrolladores, ya que la estructura del proyecto refleja el lenguaje del negocio. Un nuevo miembro del equipo podría ver el dominio `Menu` y comprender inmediatamente que ahí se maneja todo lo relacionado con el menú de la pizzería, sin necesidad de profundizar en detalles técnicos complejos.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. **Separación de Preocupaciones**: Al aislar el código del negocio en dominios, se separa de las preocupaciones técnicas, como controladores HTTP o capas de infraestructura, que viven en otras partes de la aplicación. Esto permite que los desarrolladores se centren en la lógica del negocio sin distraerse con las complejidades de la implementación técnica.
 
-### Premium Partners
+En resumen, la creación del dominio `Menu` no solo refleja una buena práctica de DDD, sino que también prepara la aplicación para una fácil evolución y mantenimiento a largo plazo, adaptándose a futuros cambios en el negocio.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+---
+## Dependencias
 
-## Contributing
+He aplicado **cero dependencias/packages externos** en el proyecto para cumplir con la preferencia de utilizar únicamente las herramientas nativas que ofrece Laravel. Esto ayuda a mantener el proyecto ligero y sencillo, aprovechando al máximo las funcionalidades propias del framework.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Seeder Automático
 
-## Code of Conduct
+El proyecto incluye un **seeder** que genera automáticamente:
+- **20 pizzas**
+- **10 ingredientes**
+- **1 usuario administrador** y **1 usuario cliente**.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Las credenciales de los usuarios son las siguientes:
 
-## Security Vulnerabilities
+- **Administrador:**
+    - Correo: `admin@admin.com`
+    - Contraseña: `QWERTY123`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **Cliente:**
+    - Correo: `client@client.com`
+    - Contraseña: `12345678`
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Consideraciones sobre Packages y Herramientas de Terceros
+
+Aunque en este proyecto no he utilizado paquetes adicionales, si fuera un proyecto real, habría considerado usar herramientas de alta calidad y confiabilidad como:
+- **[Laravel Data](https://github.com/spatie/laravel-data)**: Para manejar y transformar los datos de forma más eficiente.
+- **[Laravel Translatable](https://github.com/spatie/laravel-translatable)**: Para gestionar la internacionalización y los contenidos en varios idiomas.
+
+## Frontend
+
+El frontend no ha sido personalizado en profundidad, ya que no era el foco principal de esta prueba. Sin embargo, en un proyecto real, hubiera preferido utilizar **TailwindCSS** y **AlpineJS** en lugar de **Bootstrap** y **jQuery**, ya que ofrecen mayor flexibilidad y rendimiento.
+
+Dicho esto, reconozco que hay proyectos antiguos que pueden requerir Bootstrap y jQuery para mantener la compatibilidad y facilidad de mantenimiento.
+
+### Choices.js
+Para mejorar los formularios, he añadido la dependencia **choices.js**, pero solo en los formularios, y lo he hecho de forma dinámica utilizando `@stack` y `@push` para cargar los scripts y estilos solo donde se necesita.
+
+```blade
+@push('styles')
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"
+    />
+@endpush
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+    <script type="text/javascript">
+        const element = document.querySelector('.js-choice');
+        const choices = new Choices(element);
+    </script>
+@endpush
+```
+
+## Optimización y Cache
+
+He decidido añadir el campo `total_price` a la tabla de pizzas. Este campo se actualiza mediante un sistema de cache que se refresca con eventos y acciones asincrónicas. Justificación: en el contexto de una pizzería, los precios e ingredientes de las pizzas no cambian con frecuencia, por lo que calcular el precio de cada pizza dinámicamente no es necesario en cada solicitud.
+
+## CQRS (Command Query Responsibility Segregation)
+
+El proyecto sigue el patrón **CQRS** (Separación de Responsabilidades entre Comandos y Consultas), pero he utilizado **ViewModels** y **Acciones** en lugar de Comandos o Repositorios. A nivel práctico, el concepto es similar, manteniendo la separación entre las responsabilidades de lectura y escritura, lo que facilita la escalabilidad y el mantenimiento del código.
+
+## Nota sobre el Ejemplo del Precio
+
+Me he ceñido al literal del enunciado, aunque el ejemplo proporcionado en la prueba muestra un cálculo de precio erróneo (una pizza Campagna tiene un precio de 10€, pero sus ingredientes suman 4,5€). El cálculo que he implementado utiliza correctamente la suma de los precios de los ingredientes más el 50% de dicha suma para obtener el precio final de la pizza.
+
+---
