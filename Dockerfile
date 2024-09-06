@@ -42,10 +42,13 @@ CMD cp .env.example .env && \
     php artisan migrate:refresh --seed && \
     npm install && \
     npm run build && \
-    php artisan storage:link && \
+    php artisan storage:link --relative && \
     php artisan optimize && \
     php artisan config:cache && \
     php artisan route:cache && \
     php artisan event:cache && \
     php artisan view:cache && \
     php-fpm
+
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 755 /var/www/storage
