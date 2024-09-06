@@ -2,6 +2,8 @@
 
 namespace Domain\Shared\Models\Traits;
 
+use InvalidArgumentException;
+
 trait HasData
 {
     public function getData()

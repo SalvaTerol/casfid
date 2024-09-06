@@ -6,6 +6,7 @@ use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\PizzaController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\SetLocale;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('locale/{locale}', ChangeLocaleController::class)->name('locale')->middleware(\App\Http\Middleware\ValidateLocale::class);
@@ -18,4 +19,3 @@ Route::middleware(SetLocale::class)->group(function () {
 });
 
 Auth::routes();
-

@@ -14,6 +14,7 @@ class Ingredient extends BaseModel
         'name',
         'price',
     ];
+
     protected $dataClass = IngredientData::class;
 
     public function pizzas(): BelongsToMany
@@ -32,6 +33,4 @@ class Ingredient extends BaseModel
     {
         return new IngredientBuilder($query);
     }
-
-
 }

@@ -5,7 +5,6 @@ namespace Domain\Menu\Actions\Pizza;
 use Domain\Menu\DataTransferObject\PizzaData;
 use Domain\Menu\Events\Pizza\PizzaCreatedEvent;
 use Domain\Menu\Events\Pizza\PizzaUpdatedEvent;
-use Domain\Menu\Models\Ingredient;
 use Domain\Menu\Models\Pizza;
 use Illuminate\Support\Facades\DB;
 
@@ -25,13 +24,12 @@ class UpsertPizzaAction
             ], $dataArray);
             $pizza->ingredients()->sync($data->ingredients->pluck('id'));
 
-
-            if ($pizza->wasRecentlyCreated){
+            if ($pizza->wasRecentlyCreated) {
                 event(new PizzaCreatedEvent($pizza));
             }
 
-            if ($pizza->wasChanged()){
-                event(new PizzaUpdatedEvent());
+            if ($pizza->wasChanged()) {
+                event(new PizzaUpdatedEvent);
             }
 
             return $pizza->load('ingredients');

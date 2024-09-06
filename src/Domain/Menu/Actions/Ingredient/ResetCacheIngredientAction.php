@@ -11,13 +11,13 @@ class ResetCacheIngredientAction
     {
         $page = 1;
         while (true) {
-            $cacheKey = GetIngredientViewModel::getCacheKey() . $page;
-            if (!Cache::has($cacheKey)) {
+            $cacheKey = GetIngredientViewModel::getCacheKey().$page;
+            if (! Cache::has($cacheKey)) {
                 break;
             }
             Cache::forget($cacheKey);
             $page++;
         }
-        Cache::forget("ingredients_list");
+        Cache::forget('ingredients_list');
     }
 }

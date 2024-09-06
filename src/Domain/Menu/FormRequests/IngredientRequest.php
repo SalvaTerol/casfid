@@ -9,8 +9,8 @@ class IngredientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required|string|max:255",
-            "price" => "required|numeric|between:0.01,9999.99",
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|between:0.01,9999.99',
         ];
     }
 

@@ -2,7 +2,6 @@
 
 namespace Domain\Menu\Actions\Pizza;
 
-use Domain\Menu\Models\Pizza;
 use Domain\Menu\ViewModels\Pizza\GetPizzasViewModel;
 use Illuminate\Support\Facades\Cache;
 
@@ -12,8 +11,8 @@ class ResetCachePizzaAction
     {
         $page = 1;
         while (true) {
-            $cacheKey = GetPizzasViewModel::getCacheKey() . $page;
-            if (!Cache::has($cacheKey)) {
+            $cacheKey = GetPizzasViewModel::getCacheKey().$page;
+            if (! Cache::has($cacheKey)) {
                 break;
             }
             Cache::forget($cacheKey);

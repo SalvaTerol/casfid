@@ -21,7 +21,7 @@ class IngredientFactory extends Factory
             'Green Peppers',
             'Ham',
             'Pineapple',
-            'Bacon'
+            'Bacon',
         ];
 
         return [

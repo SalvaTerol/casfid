@@ -3,11 +3,9 @@
 namespace Tests\Unit;
 
 use Domain\Menu\Actions\Pizza\DeletePizzaAction;
-use Domain\Menu\DataTransferObject\IngredientData;
-use Domain\Menu\Models\Pizza;
-use Domain\Menu\Models\Ingredient;
 use Domain\Menu\Actions\Pizza\UpsertPizzaAction;
 use Domain\Menu\DataTransferObject\PizzaData;
+use Domain\Menu\Models\Ingredient;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +23,7 @@ class PizzaTest extends TestCase
             'ingredients' => [],
         ]);
 
-        $pizza = (new UpsertPizzaAction())->execute($pizzaData);
+        $pizza = (new UpsertPizzaAction)->execute($pizzaData);
 
         $this->assertDatabaseHas('pizzas', [
             'name' => 'Margherita',
@@ -44,7 +42,7 @@ class PizzaTest extends TestCase
             'ingredients' => [$ingredient1->id, $ingredient2->id],
         ]);
 
-        $pizza = (new UpsertPizzaAction())->execute($pizzaData);
+        $pizza = (new UpsertPizzaAction)->execute($pizzaData);
 
         $this->assertCount(2, $pizza->ingredients);
         $this->assertTrue($pizza->ingredients->contains($ingredient1));
@@ -62,11 +60,11 @@ class PizzaTest extends TestCase
             'ingredients' => [$ingredient1->id, $ingredient2->id],
         ]);
 
-        $pizza = (new UpsertPizzaAction())->execute($pizzaData);
+        $pizza = (new UpsertPizzaAction)->execute($pizzaData);
 
         $calculatedCost = $pizza->ingredients->sum(function ($ingredient) {
-                return $ingredient->price->euro;
-            }) * 1.5;
+            return $ingredient->price->euro;
+        }) * 1.5;
 
         $this->assertEquals(7.5, $calculatedCost);
     }
@@ -79,8 +77,8 @@ class PizzaTest extends TestCase
             'ingredients' => [],
         ]);
 
-        $pizza = (new UpsertPizzaAction())->execute($pizzaData);
-        (new DeletePizzaAction())->execute($pizza);
+        $pizza = (new UpsertPizzaAction)->execute($pizzaData);
+        (new DeletePizzaAction)->execute($pizza);
 
         $this->assertDatabaseMissing('pizzas', ['name' => 'Hawaiian']);
     }
@@ -97,7 +95,7 @@ class PizzaTest extends TestCase
             'ingredients' => [],
         ]);
 
-        $pizza = (new UpsertPizzaAction())->execute($pizzaData);
+        $pizza = (new UpsertPizzaAction)->execute($pizzaData);
         Storage::disk('public')->assertExists($file->hashName());
 
         $this->assertDatabaseHas('pizzas', ['name' => 'Four Seasons', 'image' => $file->hashName()]);

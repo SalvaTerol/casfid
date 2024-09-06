@@ -2,7 +2,6 @@
 
 namespace Domain\Menu\DataTransferObject;
 
-use Domain\Menu\FormRequests\IngredientRequest;
 use Domain\Menu\FormRequests\PizzaRequest;
 use Domain\Menu\Models\Ingredient;
 use Domain\Menu\Models\Pizza;
@@ -27,6 +26,7 @@ class PizzaData
         ?int $id = null
     ): self {
         $ingredients = Ingredient::whereIn('id', $request->get('ingredients'))->get();
+
         return new self(
             id: $id,
             name: $request->get('name'),
@@ -72,7 +72,7 @@ class PizzaData
             'name' => $this->name,
             'image' => $this->image,
             'total_price' => $this->total_price,
-            'ingredients' => $this->ingredients->pluck('id')->toArray()
+            'ingredients' => $this->ingredients->pluck('id')->toArray(),
         ];
     }
 }

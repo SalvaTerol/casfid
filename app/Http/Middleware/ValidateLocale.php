@@ -18,7 +18,7 @@ class ValidateLocale
         $locale = $request->route('locale');
         $availableLocales = config('app.available_locales');
 
-        if (!in_array($locale, $availableLocales)) {
+        if (! in_array($locale, $availableLocales)) {
             abort(404);
         }
 

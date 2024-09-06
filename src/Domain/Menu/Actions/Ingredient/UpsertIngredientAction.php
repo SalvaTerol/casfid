@@ -20,11 +20,11 @@ class UpsertIngredientAction
                 'price' => $data->price,
             ]);
 
-            if ($ingredient->wasRecentlyCreated){
-                event(new IngredientCreatedEvent());
+            if ($ingredient->wasRecentlyCreated) {
+                event(new IngredientCreatedEvent);
             }
 
-            if ($ingredient->wasChanged()){
+            if ($ingredient->wasChanged()) {
                 event(new IngredientUpdatedEvent($ingredient->pizzas));
             }
 

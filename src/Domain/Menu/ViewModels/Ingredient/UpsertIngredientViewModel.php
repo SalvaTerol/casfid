@@ -8,13 +8,11 @@ use Domain\Shared\ViewModels\ViewModel;
 
 class UpsertIngredientViewModel extends ViewModel
 {
-    public function __construct(public readonly ?Ingredient $ingredient = null)
-    {
-    }
+    public function __construct(public readonly ?Ingredient $ingredient = null) {}
 
     public function ingredient(): ?IngredientData
     {
-        if (!$this->ingredient){
+        if (! $this->ingredient) {
             return null;
         }
 

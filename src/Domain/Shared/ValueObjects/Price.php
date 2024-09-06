@@ -7,7 +7,9 @@ use Illuminate\Support\Number;
 class Price
 {
     public readonly int $cent;
+
     public readonly float $euro;
+
     public readonly string $formatted;
 
     public function __construct(int $cent)
@@ -25,6 +27,7 @@ class Price
     public static function transform(float $euro): self
     {
         $cent = (int) round($euro * 100);
+
         return new self($cent);
     }
 

@@ -8,7 +8,6 @@ use Illuminate\Queue\SerializesModels;
 class IngredientCreatedEvent
 {
     use Dispatchable, SerializesModels;
-    public function __construct()
-    {
-    }
+
+    public function __construct() {}
 }

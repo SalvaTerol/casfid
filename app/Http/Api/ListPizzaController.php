@@ -3,7 +3,6 @@
 namespace App\Http\Api;
 
 use Domain\Menu\ViewModels\Pizza\GetPizzasViewModel;
-use Illuminate\Http\Request;
 
 class ListPizzaController
 {

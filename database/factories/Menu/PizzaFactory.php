@@ -41,7 +41,7 @@ class PizzaFactory extends Factory
             'Caramelized Onion',
             'Carbonara',
             'Sausage Fest',
-            'Vegan Delight'
+            'Vegan Delight',
         ];
 
         $pizzaImages = ['pizza-alternative.webp', 'pizza-alternative-2.webp', 'pizza-default.webp'];

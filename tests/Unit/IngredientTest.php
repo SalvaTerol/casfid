@@ -2,16 +2,14 @@
 
 namespace Tests\Unit;
 
+use Domain\Menu\Actions\Ingredient\DeleteIngredientAction;
+use Domain\Menu\Actions\Ingredient\UpsertIngredientAction;
 use Domain\Menu\Builders\Ingredient\IngredientBuilder;
-use Domain\Shared\Models\Casts\PriceCast;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Domain\Menu\DataTransferObject\IngredientData;
 use Domain\Menu\Models\Ingredient;
 use Domain\Menu\Models\Pizza;
-use Domain\Menu\Actions\Ingredient\UpsertIngredientAction;
-use Domain\Menu\Actions\Ingredient\DeleteIngredientAction;
-use Domain\Menu\DataTransferObject\IngredientData;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class IngredientTest extends TestCase
 {
@@ -24,7 +22,7 @@ class IngredientTest extends TestCase
             'price' => 1.5,
         ]);
 
-        $ingredient = (new UpsertIngredientAction())->execute($ingredientData);
+        $ingredient = (new UpsertIngredientAction)->execute($ingredientData);
 
         $this->assertDatabaseHas('ingredients', [
             'name' => $ingredient->name,
@@ -38,13 +36,13 @@ class IngredientTest extends TestCase
             'name' => 'Cheese',
             'price' => 2.0,
         ]);
-        $ingredient = (new UpsertIngredientAction())->execute($ingredientData);
+        $ingredient = (new UpsertIngredientAction)->execute($ingredientData);
 
         $updatedIngredientData = IngredientData::fromArray([
             'name' => 'Cheese',
             'price' => 2.5,
         ]);
-        $updatedIngredient = (new UpsertIngredientAction())->execute($updatedIngredientData, $ingredient);
+        $updatedIngredient = (new UpsertIngredientAction)->execute($updatedIngredientData, $ingredient);
 
         $this->assertDatabaseHas('ingredients', [
             'name' => $updatedIngredient->name,
@@ -58,9 +56,9 @@ class IngredientTest extends TestCase
             'name' => 'Pepperoni',
             'price' => 2.0,
         ]);
-        $ingredient = (new UpsertIngredientAction())->execute($ingredientData);
+        $ingredient = (new UpsertIngredientAction)->execute($ingredientData);
 
-        (new DeleteIngredientAction())->execute($ingredient);
+        (new DeleteIngredientAction)->execute($ingredient);
 
         $this->assertDatabaseMissing('ingredients', [
             'name' => $ingredient->name,
@@ -74,7 +72,7 @@ class IngredientTest extends TestCase
             'price' => 2.0,
         ]);
 
-        $ingredient = (new UpsertIngredientAction())->execute($ingredientData);
+        $ingredient = (new UpsertIngredientAction)->execute($ingredientData);
 
         $this->assertEquals(200, $ingredient->getAttributes()['price']);
     }
@@ -85,7 +83,7 @@ class IngredientTest extends TestCase
             'name' => 'Cheese',
             'price' => 2.0,
         ]);
-        $ingredient = (new UpsertIngredientAction())->execute($ingredientData);
+        $ingredient = (new UpsertIngredientAction)->execute($ingredientData);
 
         $pizza1 = Pizza::create(['name' => 'Margarita']);
         $pizza2 = Pizza::create(['name' => 'Pepperoni']);
@@ -100,7 +98,7 @@ class IngredientTest extends TestCase
 
     public function test_it_uses_custom_builder()
     {
-        $ingredient = new Ingredient();
+        $ingredient = new Ingredient;
         $this->assertInstanceOf(IngredientBuilder::class, $ingredient->newQuery());
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Domain\Shared\Models\User;
 use Domain\Menu\Models\Ingredient;
+use Domain\Shared\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class IngredientPolicyTest extends TestCase
 {

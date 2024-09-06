@@ -9,8 +9,7 @@ use Illuminate\Support\Collection;
 
 class IngredientData
 {
-    public function __construct(public readonly ?int $id, public readonly string $name, public readonly int|float|Price
-    $price) {}
+    public function __construct(public readonly ?int $id, public readonly string $name, public readonly int|float|Price $price) {}
 
     public static function fromRequest(
         IngredientRequest $request,

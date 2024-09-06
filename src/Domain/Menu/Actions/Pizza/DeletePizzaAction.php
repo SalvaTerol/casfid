@@ -19,7 +19,7 @@ class DeletePizzaAction
             }
 
             $pizza->delete();
-            event(new PizzaUpdatedEvent());
+            event(new PizzaUpdatedEvent);
         });
 
     }

@@ -36,8 +36,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Event::listen(
-                PizzaUpdatedEvent::class,
-                PizzaUpdatedListener::class
+            PizzaUpdatedEvent::class,
+            PizzaUpdatedListener::class
         );
         Event::listen(
             PizzaCreatedEvent::class,

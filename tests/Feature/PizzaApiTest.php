@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
+use Domain\Menu\Models\Ingredient;
+use Domain\Menu\Models\Pizza;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Domain\Menu\Models\Pizza;
-use Domain\Menu\Models\Ingredient;
 
 class PizzaApiTest extends TestCase
 {

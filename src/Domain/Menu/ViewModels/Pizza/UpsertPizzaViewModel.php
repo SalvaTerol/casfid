@@ -11,13 +11,11 @@ use Illuminate\Support\Facades\Cache;
 
 class UpsertPizzaViewModel extends ViewModel
 {
-    public function __construct(public readonly ?Pizza $pizza = null)
-    {
-    }
+    public function __construct(public readonly ?Pizza $pizza = null) {}
 
     public function pizza(): ?PizzaData
     {
-        if (!$this->pizza){
+        if (! $this->pizza) {
             return null;
         }
 
@@ -27,9 +25,7 @@ class UpsertPizzaViewModel extends ViewModel
     public function ingredients()
     {
         return Cache::rememberForever('ingredients_list', function () {
-            return Ingredient::all()->map(fn(Ingredient $ingredient) => IngredientData::fromModel($ingredient));
+            return Ingredient::all()->map(fn (Ingredient $ingredient) => IngredientData::fromModel($ingredient));
         });
     }
-
-
 }

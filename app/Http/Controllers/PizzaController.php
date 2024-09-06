@@ -10,13 +10,13 @@ use Domain\Menu\Models\Pizza;
 use Domain\Menu\ViewModels\Pizza\GetPizzasViewModel;
 use Domain\Menu\ViewModels\Pizza\UpsertPizzaViewModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class PizzaController extends Controller
 {
     public function index()
     {
         $viewModel = new GetPizzasViewModel(request()->get('page', 1));
+
         return view('pizzas.index', ['viewModel' => $viewModel]);
     }
 
@@ -25,7 +25,8 @@ class PizzaController extends Controller
         if ($request->user()->cannot('create', Pizza::class)) {
             abort(403);
         }
-        return view('pizzas.form', new UpsertPizzaViewModel());
+
+        return view('pizzas.form', new UpsertPizzaViewModel);
     }
 
     public function store(PizzaRequest $pizzaRequest)
@@ -49,6 +50,7 @@ class PizzaController extends Controller
         if ($request->user()->cannot('update', $pizza)) {
             abort(403);
         }
+
         return view('pizzas.form', new UpsertPizzaViewModel($pizza));
     }
 
@@ -69,6 +71,7 @@ class PizzaController extends Controller
             abort(403);
         }
         DeletePizzaAction::execute($pizza);
+
         return redirect()->route('pizzas.index')->with('success', __('menu.pizza_deleted'));
     }
 }

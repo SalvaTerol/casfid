@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-
 use Domain\Menu\Models\Ingredient;
 use Domain\Menu\Models\Pizza;
 use Domain\Shared\Models\User;
@@ -27,7 +26,7 @@ class DatabaseSeeder extends Seeder
             $sourcePath = resource_path("images/{$image}");
             $targetPath = "{$image}";
 
-            if (!Storage::disk('public')->exists($targetPath)) {
+            if (! Storage::disk('public')->exists($targetPath)) {
                 Storage::disk('public')->put($targetPath, file_get_contents($sourcePath));
             }
 

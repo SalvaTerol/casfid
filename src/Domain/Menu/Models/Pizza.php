@@ -8,16 +8,13 @@ use Domain\Shared\Models\BaseModel;
 use Domain\Shared\Models\Casts\PriceCast;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Number;
 
 class Pizza extends BaseModel
 {
-
     protected $fillable = ['name', 'image', 'total_price'];
-    protected $dataClass = PizzaData::class;
 
+    protected $dataClass = PizzaData::class;
 
     public function ingredients(): BelongsToMany
     {
@@ -27,7 +24,7 @@ class Pizza extends BaseModel
     protected function imageUrl(): Attribute
     {
         return Attribute::make(
-            get: fn($value, $attributes) => $attributes['image'] ? Storage::disk('public')->url($attributes['image']) : asset('images/pizza-default.webp'),
+            get: fn ($value, $attributes) => $attributes['image'] ? Storage::disk('public')->url($attributes['image']) : asset('images/pizza-default.webp'),
         );
     }
 
@@ -42,6 +39,4 @@ class Pizza extends BaseModel
     {
         return new PizzaBuilder($query);
     }
-
-
 }

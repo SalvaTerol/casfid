@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use Domain\Menu\FormRequests\IngredientRequest;
-use Tests\TestCase;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Tests\TestCase;
 
 class IngredientRequestTest extends TestCase
 {
@@ -55,7 +55,7 @@ class IngredientRequestTest extends TestCase
 
     private function validateRequest(array $data)
     {
-        $request = new IngredientRequest();
+        $request = new IngredientRequest;
         $validator = Validator::make($data, $request->rules());
 
         if ($validator->fails()) {

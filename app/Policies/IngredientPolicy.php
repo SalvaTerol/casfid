@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use Domain\Menu\Models\Ingredient;
 use Domain\Shared\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class IngredientPolicy
 {

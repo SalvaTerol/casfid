@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseModel extends Model
 {
-    use HasFactory, HasData;
+    use HasData, HasFactory;
 
     protected static function newFactory()
     {
-        $parts = str(get_called_class())->explode("\\");
+        $parts = str(get_called_class())->explode('\\');
         $domain = $parts[1];
         //$domain = $parts->get(1);
         $model = $parts->last();

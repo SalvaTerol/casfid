@@ -25,6 +25,7 @@ class IngredientController extends Controller
         if ($request->user()->cannot('create', Ingredient::class)) {
             abort(403);
         }
+
         return view('ingredients.form');
     }
 
@@ -49,6 +50,7 @@ class IngredientController extends Controller
         if ($request->user()->cannot('update', $ingredient)) {
             abort(403);
         }
+
         return view('ingredients.form', new UpsertIngredientViewModel($ingredient));
     }
 
@@ -69,6 +71,7 @@ class IngredientController extends Controller
             abort(403);
         }
         DeleteIngredientAction::execute($ingredient);
+
         return redirect()->route('ingredients.index')->with('success', __('menu.ingredient_deleted'));
     }
 }

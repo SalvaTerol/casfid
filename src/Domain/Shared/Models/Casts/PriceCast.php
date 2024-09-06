@@ -17,6 +17,7 @@ class PriceCast implements CastsAttributes
         if ($value instanceof Price) {
             return $value->cent;
         }
+
         return Price::transform($value)->cent;
     }
 }

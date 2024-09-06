@@ -4,10 +4,10 @@ namespace Tests\Feature;
 
 use Domain\Menu\FormRequests\PizzaRequest;
 use Domain\Menu\Models\Ingredient;
-use Illuminate\Http\UploadedFile;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
+use Tests\TestCase;
 
 class PizzaRequestTest extends TestCase
 {
@@ -60,13 +60,11 @@ class PizzaRequestTest extends TestCase
         $this->assertTrue($this->validateRequest($data));
     }
 
-
-
     private function validateRequest(array $data)
     {
-        $request = new PizzaRequest();
+        $request = new PizzaRequest;
         $validator = Validator::make($data, $request->rules());
 
-        return !$validator->fails();
+        return ! $validator->fails();
     }
 }
