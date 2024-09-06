@@ -13,6 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append(\App\Http\Middleware\SetLocale::class);
+        $middleware->api('throttle:api');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

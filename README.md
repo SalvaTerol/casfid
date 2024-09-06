@@ -30,6 +30,7 @@ En resumen, la creación del dominio `Menu` no solo refleja una buena práctica 
 
 He aplicado **cero dependencias/packages externos** en el proyecto para cumplir con la preferencia de utilizar únicamente las herramientas nativas que ofrece Laravel. Esto ayuda a mantener el proyecto ligero y sencillo, aprovechando al máximo las funcionalidades propias del framework.
 
+
 ## Seeder Automático
 
 El proyecto incluye un **seeder** que genera automáticamente:
@@ -47,6 +48,19 @@ Las credenciales de los usuarios son las siguientes:
     - Correo: `client@client.com`
     - Contraseña: `12345678`
 
+Dado que se especifica que el cliente debe poder ver las pizzas (con su información y precio calculado) y sus ingredientes, he añadido una **"landing page"** accesible en la ruta `/`. Esta página es visible para cualquier usuario, ya sea registrado o no, y muestra las pizzas junto con sus ingredientes y precios.
+
+### Funcionalidades para usuarios registrados:
+- Los usuarios que tengan el campo `is_admin = true` (como el administrador generado por el seeder) podrán, además de ver las pizzas, acceder al **CRUD** de ingredientes y pizzas, lo que les permitirá gestionar el menú.
+
+### API Endpoint
+El proyecto también incluye un endpoint de la API para listar las pizzas, disponible en la ruta:
+
+```
+/api/pizza
+```
+
+---
 
 ## Consideraciones sobre Packages y Herramientas de Terceros
 

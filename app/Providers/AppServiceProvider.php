@@ -14,10 +14,12 @@ use Domain\Menu\Listeners\Pizza\PizzaCreatedListener;
 use Domain\Menu\Listeners\Pizza\PizzaUpdatedListener;
 use Domain\Menu\Models\Ingredient;
 use Domain\Menu\Models\Pizza;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -57,5 +59,12 @@ class AppServiceProvider extends ServiceProvider
         });
         Gate::policy(Pizza::class, PizzaPolicy::class);
         Gate::policy(Ingredient::class, IngredientPolicy::class);
+
+        RateLimiter::for('api', function ($request) {
+            if (optional(auth()->user())->is_admin) {
+                return Limit::perMinute(1000)->by(optional($request->user())->id ?: $request->ip());
+            }
+            return Limit::perMinute(20)->by(optional($request->user())->id ?: $request->ip());
+        });
     }
 }
