@@ -40,6 +40,7 @@ RUN chown -R www-data:www-data /var/www \
 EXPOSE 9000
 
 CMD cp .env.example .env && \
+    composer install --optimize-autoloader && \
     php artisan key:generate && \
     php artisan migrate:refresh --seed && \
     npm install && \
