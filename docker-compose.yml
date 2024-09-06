@@ -73,10 +73,11 @@ services:
         container_name: laravel_worker
         depends_on:
             - app
+            - composer
         volumes:
             - .:/var/www
         working_dir: /var/www
-        command: /bin/sh -c "composer install --no-dev --optimize-autoloader --no-interaction && php artisan queue:work --tries=3 --timeout=90"
+        command: /bin/sh -c "composer install --optimize-autoloader --no-interaction && php artisan queue:work --tries=3 --timeout=90"
         networks:
             - app-network
 
