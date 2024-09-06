@@ -32,15 +32,12 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
-
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage
 
 EXPOSE 9000
 
 CMD cp .env.example .env && \
-    composer install --optimize-autoloader && \
     php artisan key:generate && \
     php artisan migrate:refresh --seed && \
     npm install && \
